@@ -31,7 +31,7 @@ def query():
         logger.info("response=%s", str(response))
         return jsonify({"response": response}), 200
     except Exception as e:
-        logger.error(f"An error occurred: {e}")
+        logger.error("An error occurred: %s", e)
         return jsonify({"error": "An error occurred!"}), 500
 
 
