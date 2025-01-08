@@ -37,4 +37,4 @@ def query():
 
 if __name__ == "__main__":
     # 在指定 IP 和端口上运行 Flask 应用。
-    app.run(host="0.0.0.0", port=5601)
+    app.run(host="0.0.0.0", port=5678)
