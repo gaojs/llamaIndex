@@ -1,0 +1,4 @@
+求解器分为两类：结构类，流体类。
+结构类，包括如下这几种求解器：Abaqus，Nastran。CodeAster。
+流体类，包括如下这几种求解器：StarCCM，Fluent。CodeSaturne。
+另外，水动力的求解器，包括：Telemac。

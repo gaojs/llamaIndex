@@ -5,11 +5,11 @@ import requests
 
 
 with gr.Blocks() as demo:
-    gr.Markdown('<img src="file/logo.png" width="100" height="50">')
+    gr.Markdown('<img src="favicon.ico" width="100" height="50">')
     gr.Markdown('')
-    tabs = gr.State([{"name": "主页",}])
-    tabs_data = {"主页": [], }
-    state_tab = gr.State("主页")  # 用于记录当前 Tab 名字
+    tabs = gr.State([{"name": "index",}])
+    tabs_data = {"index": [], }
+    state_tab = gr.State("index")  # 用于记录当前 Tab 名字
     state_chat = gr.State([])    # 用于记录当前聊天记录
 
     def add_tabs(tabs, new_tabs_name):
@@ -20,8 +20,8 @@ with gr.Blocks() as demo:
         folder = os.path.exists(path)
         if not folder:
             os.makedirs(path)
-        for fileobj in fileobjs:
-            shutil.copyfile(fileobj.name, path+ os.path.basename(fileobj))
+        for file in fileobjs:
+            shutil.copyfile(file.name, path+ os.path.basename(file))
         return
 
     def load_tab_data(tab_name):
@@ -32,16 +32,15 @@ with gr.Blocks() as demo:
         for tab in tabs_list:
             tab_name = tab["name"]
             with gr.Tab(tab_name) as ttab:
-                chatbot = gr.Chatbot(latex_delimiters=[{ "left": "$$", "right": "$$", "display": True },{ "left": "$", "right": "$", "display": False }])  # 对话框
+                chatbot = gr.Chatbot(latex_delimiters=[{ "left": "$$", "right": "$$", "display": True },
+                                                       { "left": "$", "right": "$", "display": False }])  # 对话框
                 msg = gr.Textbox(show_label=False, placeholder="输入消息...")  # 输入文本框
 
                 def respond(message,chat_history,cur_tab):
-                    url = "http://10.0.203.215:5601/query"
+                    url = "http://127.0.0.1:5601/query"
                     params = {'name':cur_tab,'text': message}
-
                     # 发送 GET 请求
                     response = requests.get(url, params=params)
-
                     # 检查请求状态
                     if response.status_code == 200:
                         response_msg = response.text
@@ -51,9 +50,7 @@ with gr.Blocks() as demo:
                     tabs_data[cur_tab] = chat_history
                     return "", chat_history
                 ttab.select(lambda name=tab_name: (name, load_tab_data(name)), None, [state_tab, chatbot])
-
             msg.submit(respond, [msg, chatbot, state_tab], [msg, chatbot])
-
 
         with gr.Tab("添加知识库"):
             with gr.Column():
@@ -65,7 +62,7 @@ with gr.Blocks() as demo:
 
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0",server_port=1234,allowed_paths=["/"])
+    demo.launch(server_name="localhost",server_port=1234,allowed_paths=["/"])
 
 
 

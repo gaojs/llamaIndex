@@ -19,22 +19,22 @@ def query():
         engine_name = request.args.get("name", None)
         logger.info("engine_name=%s", engine_name)
         if not engine_name:
-            return jsonify({"error": "Engine name is required!"}), 400
+            return "Engine name is required!", 400
         if engine_name not in llama_local.query_engine:
             llama_local.initialize_query_engine(engine_name)
 
         query_text = request.args.get("text", None)
         logger.info("query_text=%s", query_text)
         if not query_text:
-            return jsonify({"error": "Query text is required!"}), 400
+            return "Query text is required!", 400
         response = llama_local.query_engine[engine_name].query(query_text)
         logger.info("response=%s", str(response))
-        return jsonify({"response": response}), 200
+        return str(response), 200
     except Exception as e:
         logger.error("An error occurred: %s", e)
-        return jsonify({"error": "An error occurred!"}), 500
+        return "An error occurred!", 500
 
 
 if __name__ == "__main__":
     # 在指定 IP 和端口上运行 Flask 应用。
-    app.run(host="0.0.0.0", port=8099)
+    app.run(host="0.0.0.0", port=5601)
