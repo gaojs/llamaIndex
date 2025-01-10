@@ -1,0 +1,17 @@
+llamaIndex支持的Agent：
+BaseAgent(base). 
+==ReActAgent(legacy). 结合了 推理 (Reasoning) 和 行动 (Acting) 的代理类。
+==BaseAgentRunner(runner). 
+--==AgentRunner(AgentRunner).  顺序执行代理任务 的代理类。
+----==FunctionCallingAgent. 涉及多个函数调用或需要与外部系统交互。比如查天气。
+----==ReActAgent(runner\react). 结合了 推理 (Reasoning) 和 行动 (Acting) 的代理类。
+----==BasePlanningAgentRunner(runner). 
+------==StructuredPlannerAgent. 任务规划和结构化决策 的代理类。任务需要分解，比如组织团队会议。
+----==OpenAIAgent. 通用的 OpenAI API 交互代理类，用于各种文本生成和理解任务。
+--==ParallelAgentRunner. 并行执行代理任务 的代理类。
+--BaseOpenAIAgent(integrations). 
+--==OpenAIAgent(legacy). 通用的 OpenAI API 交互代理类，用于各种文本生成和理解任务。
+----==FnRetrieverOpenAIAgent. 加了检索功能，除了生成文本，还能从外部数据源中检索相关信息。
+--==ContextRetrieverOpenAIAgent. 上下文检索的代理类，适用于需要上下文理解的场景，常用于对话型应用。
+==OpenAIAssistantAgent(integrations). 用于构建虚拟助手，依赖于 OpenAI 语言模型进行交互式对话。
+==DashScopeAgent(integrations). 与阿里云平台（Bailian）交互。快速（Dash）执行的操作范围（Scope）。
