@@ -17,8 +17,7 @@ multiply_tool = FunctionTool.from_defaults(
 )
 
 # Initialize LLM
-llm = Ollama(model="qwen2:0.5b", request_timeout=360.0)
-
+llm = Ollama(model="qwen2.5:0.5b", request_timeout=360.0)
 # Initialize ReAct agent with tools
 agent = ReActAgent.from_tools([multiply_tool], llm=llm, verbose=True)
 
@@ -26,5 +25,5 @@ res = llm.complete("What is 2.3 × 4.8 ? Calculate step by step")
 print(res)
 
 # use agent
-response = agent.chat("What is 2.3 × 4.8 ? Calculate step by step")
-print(response.response)
+agent.chat("What is 2.3 × 4.8 ? Calculate step by step")
+
